@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Matching Game</title>
+    <meta name="description" content="" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet prefetch"
+      href="https://fonts.googleapis.com/css?family=Coda"
+    />
+    <link
+      rel="stylesheet prefetch"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Memory Game</h1>
+      </header>
+
+      <section class="score-panel">
+        <ul class="stars">
+          <li>
+            <i class="fa fa-star"></i>
+          </li>
+          <li>
+            <i class="fa fa-star"></i>
+          </li>
+          <li>
+            <i class="fa fa-star"></i>
+          </li>
+        </ul>
+
+        <span class="moves">0 Move</span>
+
+        <div class="timer">
+          <i class="fa fa-clock-o"></i>
+          <span class="hours"> 00 </span> : <span class="minutes"> 00 </span> :
+          <span class="seconds"> 00 </span>
+        </div>
+
+        <div class="restart">
+          <i class="fa fa-repeat"></i>
+        </div>
+      </section>
+
+      <section id="playground">
+        <ul class="deck"></ul>
+      </section>
+    </div>
+    <div class="modal">
+      <div class="modal-box">
+        <h1>Congrats!! You Made It</h1>
+        <p>
+          You made it in :
+          <span class="time-modal"></span>
+          <br />
+          Your rating:
+          <span class="rating-modal"> </span>
+          <br />
+          Moves:
+          <span class="moves-modal"> </span>
+        </p>
+        <button class="btn-modal">Restart Game</button>
+      </div>
+    </div>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
