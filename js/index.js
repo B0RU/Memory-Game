@@ -124,16 +124,24 @@ const startPlaying = e => {
 
     selectedCard.classList.add("open", "show");
     cardsCheckList.push(selectedCard);
-
   }
   if (cardsCheckList.length == 2) {
+    cardsDeck.classList.add('stop-pointer');
+    selectedCard.classList.add('stop-pointer')
+
+
     movesIncrement();
     if (cardsCheckList[0].innerHTML === cardsCheckList[1].innerHTML) {
       matched();
 
-    } else {
+      selectedCard.classList.remove('stop-pointer')
 
-      setTimeout(noMatch, 700);
+
+    } else {
+      setTimeout(() => {
+        noMatch();
+        selectedCard.classList.remove('stop-pointer')
+      }, 700);
     }
     finish();
   }
@@ -146,12 +154,16 @@ const matched = () => {
   matchedCardsList.push(cardsCheckList[0]);
   matchedCardsList.push(cardsCheckList[1]);
   cardsCheckList = [];
+  cardsDeck.classList.remove('stop-pointer');
+
 }
 
 const noMatch = () => {
   cardsCheckList[0].classList.remove("open", "show");
   cardsCheckList[1].classList.remove("open", "show");
   cardsCheckList = [];
+  cardsDeck.classList.remove('stop-pointer');
+
 }
 
 const movesIncrement = () => {

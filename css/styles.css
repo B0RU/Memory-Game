@@ -119,12 +119,18 @@ h1 {
 }
 
 
+.stop-pointer {
+    pointer-events: none;
+}
+
 
 
 .grey {
     color: #d3d3d3;
 }
 
+
+/* Modal Styles */
 
 .modal {
     position: fixed;
@@ -175,6 +181,7 @@ h1 {
     display: inline-block;
 }
 
+/* media Queries */
 
 @media screen and (max-width: 650px) {
     .score-panel {
@@ -212,7 +219,7 @@ h1 {
     }
 
     .deck {
-        width: 95%;
+        width: 100%;
     }
 }
 
