@@ -1,7 +1,7 @@
 /*
  list that holds all of cards Classes
  */
-let cardsList = [
+const cardsList = [
   "fa fa-cube",
   "fa fa-cube",
   "fa fa-paper-plane-o",
@@ -34,14 +34,13 @@ const hours = document.querySelector(".hours");
 const cardsDeck = document.querySelector(".deck");
 const playground = document.querySelector("#playground");
 const movesElement = document.querySelector(".moves");
-const modal = document.querySelector('.modal');
-const finishTime = document.querySelector('.time-modal');
-const finishRating = document.querySelector('.rating-modal');
-const finishMoves = document.querySelector('.moves-modal');
-const btnModal = document.querySelector('.btn-modal');
-const starsAll = document.querySelector('.stars');
-const stars = document.querySelector('.stars').childNodes;
-
+const modal = document.querySelector(".modal");
+const finishTime = document.querySelector(".time-modal");
+const finishRating = document.querySelector(".rating-modal");
+const finishMoves = document.querySelector(".moves-modal");
+const btnModal = document.querySelector(".btn-modal");
+const starsAll = document.querySelector(".stars");
+const stars = document.querySelector(".stars").childNodes;
 
 let secondsTimer = 0;
 let minutesTimer = 0;
@@ -51,8 +50,7 @@ let cardsCheckList = [];
 let matchedCardsList = [];
 let moves = 0;
 
-
-
+// timeformat is to format the time from being just 0 to 00
 const timeFormat = (value, element) => {
   if (value < 10) {
     return (element.innerHTML = `0${value}`);
@@ -61,10 +59,11 @@ const timeFormat = (value, element) => {
   }
 };
 
+// timer function
 const startTimer = () => {
   secondsTimer = 1;
 
-  counter = setInterval(function () {
+  counter = setInterval(function() {
     seconds.innerHTML = `${secondsTimer}`;
     minutes.innerHTML = `${minutesTimer}`;
     hours.innerHTML = `${hoursTimer}`;
@@ -101,101 +100,103 @@ const shuffle = array => {
   return array;
 };
 
+//build the game and shuffle the cards
 const buildPlayground = () => {
-  cardsDeck.innerHTML = '';
+  cardsDeck.innerHTML = "";
   const shuffleCards = shuffle(cardsList);
   for (let i = 0; i < shuffleCards.length; i++) {
-    const cardElement = document.createElement('li');
-    cardElement.classList.add('card');
+    const cardElement = document.createElement("li");
+    cardElement.classList.add("card");
     cardElement.innerHTML = `<i class="${shuffleCards[i]}"></i>`;
     cardsDeck.appendChild(cardElement);
   }
-  playground.addEventListener('click', startPlaying);
-  playground.addEventListener('click', startTimer, {
+  playground.addEventListener("click", startPlaying);
+  playground.addEventListener("click", startTimer, {
     once: true
   });
+};
 
-}
-
+//start the game and validate it's matched or unmatched cards.
 const startPlaying = e => {
   const selectedCard = e.target;
 
-  if (selectedCard.classList.contains('card') && !selectedCard.classList.contains("open", "show", "match")) {
-
+  if (
+    selectedCard.classList.contains("card") &&
+    !selectedCard.classList.contains("open", "show", "match")
+  ) {
     selectedCard.classList.add("open", "show");
     cardsCheckList.push(selectedCard);
   }
   if (cardsCheckList.length == 2) {
-    cardsDeck.classList.add('stop-pointer');
-    selectedCard.classList.add('stop-pointer')
-
+    cardsDeck.classList.add("stop-pointer");
+    selectedCard.classList.add("stop-pointer");
 
     movesIncrement();
     if (cardsCheckList[0].innerHTML === cardsCheckList[1].innerHTML) {
       matched();
 
-      selectedCard.classList.remove('stop-pointer')
-
-
+      selectedCard.classList.remove("stop-pointer");
     } else {
       setTimeout(() => {
         noMatch();
-        selectedCard.classList.remove('stop-pointer')
+        selectedCard.classList.remove("stop-pointer");
       }, 700);
     }
     finish();
   }
+};
 
-}
-
+//for matching cards.
 const matched = () => {
   cardsCheckList[0].classList.add("match");
   cardsCheckList[1].classList.add("match");
   matchedCardsList.push(cardsCheckList[0]);
   matchedCardsList.push(cardsCheckList[1]);
   cardsCheckList = [];
-  cardsDeck.classList.remove('stop-pointer');
+  cardsDeck.classList.remove("stop-pointer");
+};
 
-}
-
+//for the nonmatched cards
 const noMatch = () => {
   cardsCheckList[0].classList.remove("open", "show");
   cardsCheckList[1].classList.remove("open", "show");
   cardsCheckList = [];
-  cardsDeck.classList.remove('stop-pointer');
+  cardsDeck.classList.remove("stop-pointer");
+};
 
-}
-
+//to increment the number of moves to be used for rating
 const movesIncrement = () => {
   moves++;
   movesElement.innerHTML = `${moves}  Moves`;
   starsRating();
-}
+};
 
+//calulate the rating
 function starsRating() {
   // if the moves number is between 12 and 19
   if (moves === 12) {
     // change the color of the third star to grey
-    stars[5].classList.add('grey');
-    // if the moves number is 20 or more 
+    stars[5].classList.add("grey");
+    // if the moves number is 20 or more
   } else if (moves === 20) {
     // change the color of the second star to grey
-    stars[3].classList.add('grey');
+    stars[3].classList.add("grey");
   }
 }
 
+//congratulate you if you finished the game and display you statistics.
 const finish = () => {
   if (matchedCardsList.length === 16) {
     finishTime.innerText = timer.innerText;
     finishMoves.innerHTML = movesElement.innerHTML.slice(0, 3);
     finishRating.innerHTML = starsAll.innerHTML;
     clearInterval(counter);
-    modal.style.display = 'block';
+    modal.style.display = "block";
   }
-}
+};
 
+//you just can restart the game with it
 const restartGame = () => {
-
   moves = 0;
   cardsCheckList = [];
   matchedCardsList = [];
@@ -210,16 +211,15 @@ const restartGame = () => {
   clearInterval(counter);
   buildPlayground();
 
-  stars[5].classList.remove('grey');
-  stars[3].classList.remove('grey');
-}
+  stars[5].classList.remove("grey");
+  stars[3].classList.remove("grey");
+};
 
 restart.addEventListener("click", restartGame);
-btnModal.addEventListener('click', () => {
-  modal.style.display = 'none';
+btnModal.addEventListener("click", () => {
+  modal.style.display = "none";
   restartGame();
-})
-
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
